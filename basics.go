@@ -1,11 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
-
-	"golang.org/x/exp/slices"
-)
+	/* "golang.org/x/exp/slices" */)
 
 func isThisTrue(value bool) bool {
 	result := value == true
@@ -13,37 +13,32 @@ func isThisTrue(value bool) bool {
 	return result
 }
 
-func yeahNah(input string) bool {
+func yeahNah(input string) string {
 
 	splitFields := strings.Fields(input)
-	fmt.Println(slices.Contains(splitFields, "yeah"))
-	fmt.Println(slices.Index(splitFields, "nah"))
+	/* fmt.Println(slices.Contains(splitFields, "yeah"))
+	fmt.Println(slices.Index(splitFields, "nah")) */
 
-	for i, v := range splitFields {
-		fmt.Println("Fields are:", v)
-		if strings.Contains(v, "yeah") && i == 0 {
-			return true
-		}
-		return false
+	lastIndex := len(splitFields) - 1
+
+	if splitFields[lastIndex] == "yeah" {
+		return "this means yes"
 	}
-	return false
+	if splitFields[lastIndex] == "nah" {
+		return "this means no"
+	}
+
+	/* 	if splitFields[lastIndex] != "yeah" && splitFields[lastIndex] != "nah" {
+		println()
+	} */
+	return "who knows"
 }
 
 func main() {
-	/* fmt.Println("go" + "lang")
-	fmt.Println("1+1= ", 1+1)
-	fmt.Println("7.0/3.0= ", 7.0/3.0)
-
-	fmt.Println(true && false)
-	fmt.Println(true || false)
-	fmt.Println(!true)
-	//comment?
-	var a = "inital"
-	println(a)
-	var ab string = "123"
-	println(ab)
-
-	println(isThisTrue(false))
-	println(isThisTrue(true)) */
-	println(yeahNah("nah yeah nah"))
+	reader := bufio.NewReader(os.Stdin)
+	char, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+	}
+	println(yeahNah(char))
 }
