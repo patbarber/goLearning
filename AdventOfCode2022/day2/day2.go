@@ -99,6 +99,49 @@ func checkThrown(input []string) int {
 	return 0
 }
 
+func checkResult(input []string) int {
+	for _, value := range input {
+		var splitted = strings.Split(value, " ")
+
+		if strings.Contains(splitted[0], rock) {
+			if strings.Contains(splitted[1], lose) {
+				return 0 + 3
+			}
+			if strings.Contains(splitted[1], draw) {
+				return 3 + 1
+			}
+			if strings.Contains(splitted[1], win) {
+				return 6 + 2
+			}
+
+		}
+		if strings.Contains(splitted[0], paper) {
+			if strings.Contains(splitted[1], lose) {
+				return 0 + 1
+			}
+			if strings.Contains(splitted[1], draw) {
+				return 3 + 2
+			}
+			if strings.Contains(splitted[1], win) {
+				return 6 + 3
+			}
+
+		}
+		if strings.Contains(splitted[0], scissors) {
+			if strings.Contains(splitted[1], lose) {
+				return 0 + 2
+			}
+			if strings.Contains(splitted[1], draw) {
+				return 3 + 3
+			}
+			if strings.Contains(splitted[1], win) {
+				return 6 + 1
+			}
+		}
+	}
+	return 0
+}
+
 func main() {
 	var lines, err = readLine()
 	if err != nil {
@@ -113,7 +156,7 @@ func main() {
 	for _, value := range lines {
 		wins = append(wins, checkWin(value))
 		thrownValues = append(thrownValues, checkThrown(value))
-		var total = checkThrown(value) + checkWin(value)
+		var total = checkResult(value)
 		totals = append(totals, total)
 	}
 	for _, value := range thrownValues {
